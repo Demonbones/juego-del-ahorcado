@@ -4,6 +4,13 @@ const wrongLetters = document.querySelector(".ahorcado__wrong-letters");
 const containerMatch = document.querySelector(".ahorcado__match-letters");
 const label = document.getElementById("ahorcado__label");
 const input = document.getElementById("hiddenInput");
+const modal = document.querySelector(".status-modal");
+const modalTitle = document.querySelector(".status__title");
+const modalMessage = document.querySelector(".status__message");
+const modalImg = document.querySelector(".status__img");
+const modalBtn = document.querySelector(".status-btn");
+const modalSpan = document.createElement("span");
+import { lose, win } from "./texts-modal.js";
 import arrayWords from "./palabras";
 let word;
 let winer = [];
@@ -74,6 +81,10 @@ function handleKeyPrees(event) {
   const key = event.key;
   winOrLose(key, word);
 }
+function handleModal() {
+  modal.classList.toggle("status-modal--active");
+  startGame();
+}
 
 btnStart.addEventListener("click", startGame);
 
@@ -88,18 +99,46 @@ function winOrLose(key, word) {
         }
       }
     } else {
-      wrongLetters.innerHTML += key;
-      ctx.fillStyle = "white";
-      ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
+      if (wrongLetters.textContent.length === 0) {
+        wrongLetters.innerHTML += key;
+        ctx.fillStyle = "white";
+        ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
+      }
+      if (wrongLetters.textContent.length > 0) {
+        if (wrongLetters.textContent.includes(key)) {
+          return;
+        } else {
+          wrongLetters.innerHTML += key;
+          ctx.fillStyle = "white";
+          ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
+        }
+      }
+
       if (wrongLetters.innerText.length >= 6) {
-        window.alert(`Mala suerte Perdiste, la pabra es ${word}`);
-        startGame();
+        modalTitle.innerHTML = lose.title;
+        modalMessage.innerHTML = lose.message;
+        modalSpan.innerHTML = word;
+        modalMessage.appendChild(modalSpan).classList.add("status__word");
+        modalImg.src = lose.urlImage;
+        modalBtn.innerHTML = lose.textBtn;
+        modalBtn.addEventListener("click", handleModal);
+        modal.classList.toggle("status-modal--active");
+        document.removeEventListener("keyup", handleKeyPrees);
+        document.removeEventListener("input", handleKeyPreesTouch);
       }
     }
 
     if (winer.join("") === word) {
-      window.alert("Bien Echo Ganaste");
-      startGame();
+      modalTitle.innerHTML = win.title;
+      modalMessage.innerHTML = win.message;
+      modalSpan.innerHTML = word;
+      modalMessage.appendChild(modalSpan).classList.add("status__word");
+      modalImg.src = win.urlImage;
+      modalBtn.innerHTML = win.textBtn;
+      modalBtn.addEventListener("click", handleModal);
+      modal.classList.toggle("status-modal--active");
+      document.removeEventListener("keyup", handleKeyPrees);
+      document.removeEventListener("input", handleKeyPreesTouch);
     }
   }
 }

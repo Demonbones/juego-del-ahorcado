@@ -4,7 +4,9 @@ Un juego clásico del ahorcado con gráficos en pixel art, desarrollado con **HT
 
 ## 📷 Capturas de Pantalla
 
-![Captura del juego](./src/images/ahorcado.png)
+![Pantalla de inicio](./src/images/ahorcado.png)
+![Ganaste el juego](./src/images/victoria.png)
+![Perdiste el juego](./src/images/derrota.png)
 
 ---
 
