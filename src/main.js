@@ -4,7 +4,7 @@ const wrongLetters = document.querySelector(".ahorcado__wrong-letters");
 const containerMatch = document.querySelector(".ahorcado__match-letters");
 const label = document.getElementById("ahorcado__label");
 const input = document.getElementById("hiddenInput");
-const modal = document.querySelector(".status-modal");
+const modal = document.querySelector(".container-modal");
 const modalTitle = document.querySelector(".status__title");
 const modalMessage = document.querySelector(".status__message");
 const modalImg = document.querySelector(".status__img");
@@ -82,7 +82,7 @@ function handleKeyPrees(event) {
   winOrLose(key, word);
 }
 function handleModal() {
-  modal.classList.toggle("status-modal--active");
+  modal.classList.toggle("container-modal--active");
   startGame();
 }
 
@@ -122,7 +122,7 @@ function winOrLose(key, word) {
         modalImg.src = lose.urlImage;
         modalBtn.innerHTML = lose.textBtn;
         modalBtn.addEventListener("click", handleModal);
-        modal.classList.toggle("status-modal--active");
+        modal.classList.toggle("container-modal--active");
         document.removeEventListener("keyup", handleKeyPrees);
         document.removeEventListener("input", handleKeyPreesTouch);
       }
@@ -136,7 +136,7 @@ function winOrLose(key, word) {
       modalImg.src = win.urlImage;
       modalBtn.innerHTML = win.textBtn;
       modalBtn.addEventListener("click", handleModal);
-      modal.classList.toggle("status-modal--active");
+      modal.classList.toggle("container-modal--active");
       document.removeEventListener("keyup", handleKeyPrees);
       document.removeEventListener("input", handleKeyPreesTouch);
     }
