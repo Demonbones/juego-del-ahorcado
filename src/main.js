@@ -86,6 +86,19 @@ function handleModal() {
   startGame();
 }
 
+function showGameResultModal(result) {
+  modalTitle.innerHTML = result.title;
+  modalMessage.innerHTML = result.message;
+  modalSpan.innerHTML = word;
+  modalMessage.appendChild(modalSpan).classList.add("status__word");
+  modalImg.src = result.urlImage;
+  modalBtn.innerHTML = result.textBtn;
+  modalBtn.addEventListener("click", handleModal);
+  modal.classList.toggle("container-modal--active");
+  document.removeEventListener("keyup", handleKeyPrees);
+  document.removeEventListener("input", handleKeyPreesTouch);
+}
+
 btnStart.addEventListener("click", startGame);
 
 function winOrLose(key, word) {
@@ -113,32 +126,14 @@ function winOrLose(key, word) {
           ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
         }
       }
-
-      if (wrongLetters.innerText.length >= 6) {
-        modalTitle.innerHTML = lose.title;
-        modalMessage.innerHTML = lose.message;
-        modalSpan.innerHTML = word;
-        modalMessage.appendChild(modalSpan).classList.add("status__word");
-        modalImg.src = lose.urlImage;
-        modalBtn.innerHTML = lose.textBtn;
-        modalBtn.addEventListener("click", handleModal);
-        modal.classList.toggle("container-modal--active");
-        document.removeEventListener("keyup", handleKeyPrees);
-        document.removeEventListener("input", handleKeyPreesTouch);
-      }
     }
+  }
 
-    if (winer.join("") === word) {
-      modalTitle.innerHTML = win.title;
-      modalMessage.innerHTML = win.message;
-      modalSpan.innerHTML = word;
-      modalMessage.appendChild(modalSpan).classList.add("status__word");
-      modalImg.src = win.urlImage;
-      modalBtn.innerHTML = win.textBtn;
-      modalBtn.addEventListener("click", handleModal);
-      modal.classList.toggle("container-modal--active");
-      document.removeEventListener("keyup", handleKeyPrees);
-      document.removeEventListener("input", handleKeyPreesTouch);
-    }
+  if (wrongLetters.innerText.length >= 6) {
+    showGameResultModal(lose);
+  }
+
+  if (winer.join("") === word) {
+    showGameResultModal(win);
   }
 }
