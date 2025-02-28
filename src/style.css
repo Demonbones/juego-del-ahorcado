@@ -136,3 +136,10 @@ body {
   margin-top: 1.25em;
   padding: 0.6rem;
 }
+/* Estilos específicos para pantallas pequeñas */
+
+@media (min-width: 320px) and (max-width: 425px) {
+  .status-modal {
+    width: 90%;
+  }
+}
