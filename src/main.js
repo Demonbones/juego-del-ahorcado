@@ -112,19 +112,10 @@ function winOrLose(key, word) {
         }
       }
     } else {
-      if (wrongLetters.textContent.length === 0) {
+      if (!wrongLetters.textContent.includes(key)) {
         wrongLetters.innerHTML += key;
         ctx.fillStyle = "white";
         ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
-      }
-      if (wrongLetters.textContent.length > 0) {
-        if (wrongLetters.textContent.includes(key)) {
-          return;
-        } else {
-          wrongLetters.innerHTML += key;
-          ctx.fillStyle = "white";
-          ctx.fillRect(...bodyParts[wrongLetters.innerText.length - 1]);
-        }
       }
     }
   }
